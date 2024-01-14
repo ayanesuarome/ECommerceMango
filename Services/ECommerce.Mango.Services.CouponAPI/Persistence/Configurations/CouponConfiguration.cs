@@ -1,4 +1,4 @@
-﻿using ECommerce.Mango.Services.CouponAPI.Entities;
+﻿using ECommerce.Mango.Services.CouponAPI.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,13 +17,17 @@ public class CouponConfiguration : IEntityTypeConfiguration<Coupon>
                 Id = 1,
                 CouponCode = "10OFF",
                 DiscountAmount = 10,
-                MinimumAmount = 20
+                MinimumAmount = 20,
+                DateCreated = DateTime.UtcNow,
+                DateModified = DateTime.UtcNow
             }, new Coupon
             {
                 Id = 2,
                 CouponCode = "20OFF",
                 DiscountAmount = 20,
-                MinimumAmount = 40
+                MinimumAmount = 40,
+                DateCreated = DateTime.UtcNow,
+                DateModified = DateTime.UtcNow
             });
     }
 }

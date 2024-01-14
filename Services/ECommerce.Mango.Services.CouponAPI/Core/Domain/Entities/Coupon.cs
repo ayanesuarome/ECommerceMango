@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Mango.Services.CouponAPI.Entities;
+﻿namespace ECommerce.Mango.Services.CouponAPI.Core.Domain.Entities;
 
 public class Coupon : BaseEntity
 {

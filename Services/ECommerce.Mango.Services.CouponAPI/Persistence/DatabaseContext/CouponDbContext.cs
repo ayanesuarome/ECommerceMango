@@ -1,4 +1,4 @@
-﻿using ECommerce.Mango.Services.CouponAPI.Entities;
+﻿using ECommerce.Mango.Services.CouponAPI.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Mango.Services.CouponAPI.Persistence.DatabaseContext;
