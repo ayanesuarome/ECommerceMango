@@ -1,6 +1,4 @@
-﻿using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Shared;
-
-namespace ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponDetails;
+﻿namespace ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Shared;
 
 public class CouponDetailsDto : BaseDto
 {

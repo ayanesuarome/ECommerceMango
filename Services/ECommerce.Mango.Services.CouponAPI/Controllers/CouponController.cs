@@ -1,5 +1,9 @@
-﻿using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponDetails;
+﻿using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Commands.CreateCoupon;
+using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Commands.DeleteCoupon;
+using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponDetails;
+using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponDetailsByCode;
 using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponList;
+using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,21 +25,33 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
         }
 
         // GET api/<Coupon>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CouponDetailsDto>> Get(int id)
         {
-            return Ok(await _mediator.Send(new GetCouponDetailsQueryList(id)));
+            return Ok(await _mediator.Send(new GetCouponDetailsQuery(id)));
+        }
+        
+        // GET api/<Coupon>/code
+        [HttpGet("{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CouponDetailsDto>> Get(string code)
+        {
+            return Ok(await _mediator.Send(new GetCouponDetailsByCodeQuery(code)));
         }
 
         // POST api/<Coupon>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Post([FromBody] CreateCouponCommand model)
         {
+            int id = await _mediator.Send(model);
+            return CreatedAtAction(nameof(Get), id);
         }
 
         //// PUT api/<Coupon>/5
@@ -47,13 +63,15 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
         //{
         //}
 
-        //// DELETE api/<Coupon>/5
-        //[HttpDelete("{id}")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE api/<Coupon>/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteCouponCommand(id));
+            return NoContent();
+        }
     }
 }

@@ -35,4 +35,22 @@ public class CouponRepository(CouponDbContext dbContext) : ICouponRepository
             throw new Exception(ex.Message, ex);
         }
     }
+
+    public async Task DeleteAsync(Coupon entity)
+    {
+        try
+        {
+            _dbContext.Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
+
+    public async Task<Coupon> GetByCouponAsync(string coupon)
+    {
+        return await TableNoTracking.FirstOrDefaultAsync(e => e.CouponCode == coupon);
+    }
 }
