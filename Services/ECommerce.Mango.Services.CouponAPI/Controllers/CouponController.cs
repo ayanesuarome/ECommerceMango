@@ -54,15 +54,6 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
             return CreatedAtAction(nameof(Get), id);
         }
 
-        //// PUT api/<Coupon>/5
-        //[HttpPut("{id}")]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
         // DELETE api/<Coupon>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

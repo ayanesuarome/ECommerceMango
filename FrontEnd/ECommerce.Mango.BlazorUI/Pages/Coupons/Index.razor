@@ -1,0 +1,52 @@
+﻿@page "/coupons"
+
+<h3>Coupons</h3>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-danger">@Message</div>
+}
+
+@if(Coupons == null)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Coupon Code</th>
+                <th>Discount Amount</th>
+                <th>Minimum Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var coupon in Coupons)
+            {
+                <tr>
+                    <td>@coupon.Id</td>
+                    <td>@coupon.CouponCode</td>
+                    <td>@coupon.DiscountAmount</td>
+                    <td>@coupon.MinimumAmount</td>
+                    <td>
+                        @* <button @onclick=@(() => AllocateLeaveType(leaveType.Id)) class="btn btn-dark">
+                            Allocate Leave
+                        </button>
+                        <button @onclick=@(() => EditLeaveType(leaveType.Id)) class="btn btn-warning">
+                            Edit
+                        </button>
+                        <button @onclick=@(() => DetailsLeaveType(leaveType.Id)) class="btn btn-info">
+                            Details
+                        </button>
+                        <button @onclick=@(() => DeleteLeaveType(leaveType.Id)) class="btn btn-danger">
+                            Delete
+                        </button> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
