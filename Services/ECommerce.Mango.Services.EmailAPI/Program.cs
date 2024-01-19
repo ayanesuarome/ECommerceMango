@@ -7,10 +7,9 @@ using ECommerce.Mango.Services.EmailAPI.Infrastructure.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<CosmosSettings>(builder.Configuration.GetSection(nameof(CosmosSettings)));
 builder.Services.AddEmailLoggerDbContext(builder.Configuration);
-builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddPersistenceServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
