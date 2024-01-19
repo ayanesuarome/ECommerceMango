@@ -1,6 +1,9 @@
 @ECommerce.Mango.Services.CouponAPI_HostAddress = http://localhost:5028
 
-GET {{ECommerce.Mango.Services.CouponAPI_HostAddress}}/weatherforecast/
+GET {{ECommerce.Mango.Services.CouponAPI_HostAddress}}/api/coupon/
 Accept: application/json
 
 ###
+
+GET {{ECommerce.Mango.Services.CouponAPI_HostAddress}}/api/coupon/1
+Accept: application/json

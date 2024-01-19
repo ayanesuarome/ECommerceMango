@@ -31,7 +31,7 @@ public sealed class CouponDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CouponDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
     }
 }
