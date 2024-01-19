@@ -1,0 +1,6 @@
+@ECommerce.Mango.Services.AuthAPI_HostAddress = http://localhost:5291
+
+GET {{ECommerce.Mango.Services.AuthAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

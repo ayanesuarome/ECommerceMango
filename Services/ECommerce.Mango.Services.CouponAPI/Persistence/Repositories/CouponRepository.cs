@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Mango.Services.CouponAPI.Persistence.Repositories;
 
-public class CouponRepository(CouponDbContext dbContext) : ICouponRepository
+public class CouponRepository(CouponEFDbContext dbContext) : ICouponRepository
 {
-    private readonly CouponDbContext _dbContext = dbContext;
+    private readonly CouponEFDbContext _dbContext = dbContext;
     private DbSet<Coupon> Entities => _dbContext.Set<Coupon>();
 
     public virtual IQueryable<Coupon> Table => Entities;

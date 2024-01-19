@@ -11,7 +11,7 @@ public static class PersistenceServiceRegistration
 
     public static IServiceCollection AddCouponEFDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<CouponDbContext>(options => 
+        services.AddDbContext<CouponEFDbContext>(options => 
             options.UseSqlServer(configuration.GetConnectionString("CouponSqlServerDbContext")));
 
         return services;

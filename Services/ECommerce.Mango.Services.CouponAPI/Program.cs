@@ -41,7 +41,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// apply pending migrations
-MigrationHelper.ApplyMigration(app.Services);
+app.ApplyPendingMigrations();
 
 app.Run();

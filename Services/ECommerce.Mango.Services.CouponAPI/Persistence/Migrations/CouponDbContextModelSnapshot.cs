@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerce.Mango.Services.CouponAPI.Migrations
 {
-    [DbContext(typeof(CouponDbContext))]
+    [DbContext(typeof(CouponEFDbContext))]
     partial class CouponDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

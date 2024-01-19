@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Mango.Services.CouponAPI.Persistence.DatabaseContext;
 
-public sealed class CouponDbContext : DbContext
+public sealed class CouponEFDbContext : DbContext
 {
-    public CouponDbContext(DbContextOptions<CouponDbContext> options)
+    public CouponEFDbContext(DbContextOptions<CouponEFDbContext> options)
         :base(options)
     {
     }
@@ -31,7 +31,7 @@ public sealed class CouponDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CouponDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CouponEFDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

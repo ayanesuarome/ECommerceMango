@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerce.Mango.Services.CouponAPI.Migrations
 {
-    [DbContext(typeof(CouponDbContext))]
+    [DbContext(typeof(CouponEFDbContext))]
     [Migration("20240114173521_InitialMigration")]
     partial class InitialMigration
     {
