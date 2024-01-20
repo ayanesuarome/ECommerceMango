@@ -1,5 +1,9 @@
 ﻿using ECommerce.Mango.Services.AuthAPI.Entities;
+using ECommerce.Mango.Services.AuthAPI.Exceptions;
+using ECommerce.Mango.Services.AuthAPI.Interfaces;
 using ECommerce.Mango.Services.AuthAPI.Models;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -10,27 +14,62 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly RoleManager<IdentityUser> _roleManager;
+    //private readonly RoleManager<IdentityUser> _roleManager;
+    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IValidator<RegistrationRequest> _registrationValidator;
     private readonly JwtSettings _jwtSettings;
 
     public AuthService(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        RoleManager<IdentityUser> roleManager,
+        //RoleManager<IdentityUser> roleManager,
+        IJwtTokenGenerator jwtTokenGenerator,
+        IValidator<RegistrationRequest> registrationValidator,
         IOptions<JwtSettings> options)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _roleManager = roleManager;
+        //_roleManager = roleManager;
+        _jwtTokenGenerator = jwtTokenGenerator;
+        _registrationValidator = registrationValidator;
         _jwtSettings = options.Value;
     }
 
-    public Task<AuthResponse> Login(AuthRequest request)
+    public async Task<AuthResponse> Login(AuthRequest request)
     {
-        throw new NotImplementedException();
+        ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
+
+        if (user == null)
+        {
+            throw new BadRequestException("Invalid email or password");
+        }
+
+        SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+
+        if(!result.Succeeded)
+        {
+            throw new BadRequestException("Invalid email or password");
+        }
+
+        string securityToken = await _jwtTokenGenerator.GenerateToken(user);
+
+        return new AuthResponse
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            PhoneNumber = user.PhoneNumber,
+            Token = securityToken
+        };
     }
 
     public async Task<RegistrationResponse> Register(RegistrationRequest request)
     {
+        ValidationResult validationResult = await _registrationValidator.ValidateAsync(request);
+
+        if (!validationResult.IsValid)
+        {
+            throw new BadRequestException("Invalid registration", validationResult);
+        }
+
         ApplicationUser user = new()
         {
             Email = request.Email,
@@ -55,5 +94,7 @@ public class AuthService : IAuthService
 
             throw new BadRequestException(result.Errors.ToString());
         }
+
+        return new RegistrationResponse(user.Id);
     }
 }

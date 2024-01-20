@@ -1,6 +1,6 @@
 ﻿using ECommerce.Mango.Services.AuthAPI.Models;
 
-namespace ECommerce.Mango.Services.AuthAPI.Services;
+namespace ECommerce.Mango.Services.AuthAPI.Interfaces;
 
 public interface IAuthService
 {

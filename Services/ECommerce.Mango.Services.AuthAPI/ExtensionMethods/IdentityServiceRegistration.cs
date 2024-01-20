@@ -1,5 +1,6 @@
 ﻿using ECommerce.Mango.Services.AuthAPI.DatabaseContext;
 using ECommerce.Mango.Services.AuthAPI.Entities;
+using ECommerce.Mango.Services.AuthAPI.Interfaces;
 using ECommerce.Mango.Services.AuthAPI.Models;
 using ECommerce.Mango.Services.AuthAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,12 +17,13 @@ namespace ECommerce.Mango.Services.AuthAPI.ExtensionMethods
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppIdentityEFDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("AppIdentityEFDbContext")));
+                options.UseSqlServer(configuration.GetConnectionString("AppIdentitySqlServerDbContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityEFDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IAuthService, AuthService>();
 
             services.Configure<JwtSettings>(configuration.GetRequiredSection(nameof(JwtSettings)));
