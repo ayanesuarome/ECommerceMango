@@ -19,10 +19,10 @@ public class JwtTokenGenerator(UserManager<ApplicationUser> userManager, IOption
     public async Task<string> GenerateToken(ApplicationUser user)
     {
         //IList<Claim> userClaims = await _userManager.GetClaimsAsync(user);
-        //IList<string> roles = await _userManager.GetRolesAsync(user);
-        //IList<Claim> roleClaims = roles
-        //    .Select(r => new Claim(ClaimTypes.Role, r))
-        //    .ToList();
+        IList<string> roles = await _userManager.GetRolesAsync(user);
+        IList<Claim> roleClaims = roles
+            .Select(role => new Claim(ClaimTypes.Role, role))
+            .ToList();
 
         IEnumerable<Claim> claims = new[]
         {
@@ -30,9 +30,9 @@ public class JwtTokenGenerator(UserManager<ApplicationUser> userManager, IOption
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // should be unique for every token
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim("uid", user.Id)
-        };
+        }
         //.Union(userClaims)
-        //.Union(roleClaims);
+        .Union(roleClaims);
 
         SymmetricSecurityKey symmetricSecurityKey = new(Encoding.UTF8.GetBytes(_jwtSettings.Key));
         SigningCredentials signingCredentials = new(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);

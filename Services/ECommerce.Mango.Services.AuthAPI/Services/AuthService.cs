@@ -14,21 +14,18 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    //private readonly RoleManager<IdentityUser> _roleManager;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IValidator<RegistrationRequest> _registrationValidator;
     private readonly JwtSettings _jwtSettings;
 
     public AuthService(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        //RoleManager<IdentityUser> roleManager,
         IJwtTokenGenerator jwtTokenGenerator,
         IValidator<RegistrationRequest> registrationValidator,
         IOptions<JwtSettings> options)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        //_roleManager = roleManager;
         _jwtTokenGenerator = jwtTokenGenerator;
         _registrationValidator = registrationValidator;
         _jwtSettings = options.Value;
@@ -94,6 +91,8 @@ public class AuthService : IAuthService
 
             throw new BadRequestException(result.Errors.ToString());
         }
+
+        await _userManager.AddToRoleAsync(user, "Customer");
 
         return new RegistrationResponse(user.Id);
     }

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ECommerce.Mango.Services.AuthAPI.Migrations
 {
     /// <inheritdoc />
@@ -157,6 +159,25 @@ namespace ECommerce.Mango.Services.AuthAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "bcfd3118-db1d-4bd6-af03-35536c4c5169", null, "Administrator", "ADMINISTRATOR" },
+                    { "fac1f94e-1c7b-4c6f-b0f3-1e1a697a39f9", null, "Customer", "CUSTOMER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "82ef7b08-5017-4718-988e-e4f119594fca", 0, "fe3940f6-5e45-4f6f-9e82-88956b8dca54", "admin@localhost.com", true, "System", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEAEWiNs91shTQxhRnBAX8gDjNcf48BDtflYBbWH4L/3H6ukIoBAnSurpnYCtb63fKg==", null, false, "40d2a5e8-d446-4bb6-b8a2-e58e1e2027cb", false, "admin@localhost.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "bcfd3118-db1d-4bd6-af03-35536c4c5169", "82ef7b08-5017-4718-988e-e4f119594fca" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

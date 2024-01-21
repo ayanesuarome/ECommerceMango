@@ -1,14 +1,11 @@
-﻿using ECommerce.Mango.Services.AuthAPI.DatabaseContext;
+﻿using ECommerce.Mango.Services.AuthAPI.Data.DatabaseContext;
 using ECommerce.Mango.Services.AuthAPI.Entities;
 using ECommerce.Mango.Services.AuthAPI.Interfaces;
 using ECommerce.Mango.Services.AuthAPI.Models;
 using ECommerce.Mango.Services.AuthAPI.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace ECommerce.Mango.Services.AuthAPI.ExtensionMethods
 {
@@ -25,28 +22,12 @@ namespace ECommerce.Mango.Services.AuthAPI.ExtensionMethods
 
             services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             services.Configure<JwtSettings>(configuration.GetRequiredSection(nameof(JwtSettings)));
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             JwtSettings jwtSettings = serviceProvider.GetRequiredService<IOptions<JwtSettings>>().Value;
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(opt => opt.TokenValidationParameters = new()
-                {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateLifetime = true,
-                    ValidateAudience = true,
-                    ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-                });
 
             return services;
         }

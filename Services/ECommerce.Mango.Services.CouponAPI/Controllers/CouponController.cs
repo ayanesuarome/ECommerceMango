@@ -5,6 +5,7 @@ using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queri
 using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Coupons.Queries.GetCouponList;
 using ECommerce.Mango.Services.CouponAPI.Core.Application.Features.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,7 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CouponController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;

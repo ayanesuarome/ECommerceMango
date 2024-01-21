@@ -1,7 +1,7 @@
-﻿using ECommerce.Mango.Services.AuthAPI.DatabaseContext;
+﻿using ECommerce.Mango.Services.AuthAPI.Data.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Mango.Services.AuthAPI.Migrations;
+namespace ECommerce.Mango.Services.AuthAPI.Data.Migrations;
 
 public static class MigrationHelper
 {
@@ -10,7 +10,7 @@ public static class MigrationHelper
         using IServiceScope scope = app.Services.CreateScope();
         AppIdentityEFDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppIdentityEFDbContext>();
 
-        if(dbContext.Database.GetPendingMigrations().Any())
+        if (dbContext.Database.GetPendingMigrations().Any())
         {
             dbContext.Database.Migrate();
         }

@@ -1,5 +1,5 @@
+using ECommerce.Mango.Services.AuthAPI.Data.Migrations;
 using ECommerce.Mango.Services.AuthAPI.ExtensionMethods;
-using ECommerce.Mango.Services.AuthAPI.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllers();
 

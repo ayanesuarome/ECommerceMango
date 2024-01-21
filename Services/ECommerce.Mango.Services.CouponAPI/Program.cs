@@ -1,3 +1,4 @@
+using ECommerce.Mango.Services.CouponAPI;
 using ECommerce.Mango.Services.CouponAPI.Core.Application;
 using ECommerce.Mango.Services.CouponAPI.Persistence;
 using ECommerce.Mango.Services.CouponAPI.Persistence.Migrations;
@@ -5,10 +6,12 @@ using ECommerce.Mango.Services.CouponAPI.Persistence.Migrations;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddCouponEFDbContext(builder.Configuration);
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddIdentityServices(builder.Configuration);
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddCors(options =>
 {
@@ -37,7 +40,8 @@ app.UseCors("CouponAPIAll");
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// Authentication and Authorization
+app.UseAuthentication().UseAuthorization();
 
 app.MapControllers();
 
