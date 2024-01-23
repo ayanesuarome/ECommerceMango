@@ -14,13 +14,15 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class CouponController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
 
         // GET: api/<Coupon>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CouponDto>>> Get()
         {
             return Ok(await _mediator.Send(new GetCouponListQuery()));
@@ -58,6 +60,7 @@ namespace ECommerce.Mango.Services.CouponAPI.Controllers
 
         // DELETE api/<Coupon>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

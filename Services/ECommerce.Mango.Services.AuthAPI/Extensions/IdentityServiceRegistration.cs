@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace ECommerce.Mango.Services.AuthAPI.ExtensionMethods
+namespace ECommerce.Mango.Services.AuthAPI.Extensions
 {
     public static class IdentityServiceRegistration
     {

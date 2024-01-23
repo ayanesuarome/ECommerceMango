@@ -39,7 +39,6 @@ public class EmailService(IEmailSender emailSender, IEmailRepository repository)
 
     private string PrepareEmailTemplate(CartDto cart)
     {
-        // TODO: implement Builder pattern to use helper html components
         StringBuilder message = new();
         message.AppendLine("<br />");
         message.AppendLine("Cart Email Requested");
@@ -50,12 +49,10 @@ public class EmailService(IEmailSender emailSender, IEmailRepository repository)
         
         foreach (CartDetailsDto item in cart.CartDetails)
         {
-            message.AppendLine("<li>");
-            message.AppendLine($"{item.Product?.Name} x {item.Count}");
-            message.AppendLine("</li>");
+            message.AppendFormat("<li>{0}</li>", $"{item.Product?.Name} x {item.Count}");
         }
         
-        message.AppendLine("</ul>");
+        message.Append("</ul>");
 
         return message.ToString();
     }

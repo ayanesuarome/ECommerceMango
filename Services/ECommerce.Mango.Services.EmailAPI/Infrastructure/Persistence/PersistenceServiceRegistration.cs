@@ -11,6 +11,8 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddEmailLoggerDbContext(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<CosmosSettings>(configuration.GetRequiredSection("CosmosSettings"));
+
         IServiceProvider serviceProvider = services.BuildServiceProvider();
 
         CosmosSettings settings = serviceProvider

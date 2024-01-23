@@ -1,5 +1,5 @@
 using ECommerce.Mango.Services.AuthAPI.Data.Migrations;
-using ECommerce.Mango.Services.AuthAPI.ExtensionMethods;
+using ECommerce.Mango.Services.AuthAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

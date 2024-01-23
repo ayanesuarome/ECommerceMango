@@ -2,7 +2,7 @@
 using ECommerce.Mango.Services.AuthAPI.Validations;
 using FluentValidation;
 
-namespace ECommerce.Mango.Services.AuthAPI.ExtensionMethods;
+namespace ECommerce.Mango.Services.AuthAPI.Extensions;
 
 public static class ApplicationServiceRegistration
 {
