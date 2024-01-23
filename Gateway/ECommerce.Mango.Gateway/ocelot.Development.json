@@ -16,5 +16,10 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7777"
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "localhost",
+    //  "Port": 9500,
+    //  "ConfigurationKey": "Ocelot_A"
+    //}
   }
 }

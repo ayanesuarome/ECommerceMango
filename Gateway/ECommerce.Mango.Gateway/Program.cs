@@ -1,6 +1,7 @@
 using ECommerce.Mango.Gateway.Extensions;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,10 @@ builder.Configuration.AddJsonFile(
     reloadOnChange: true);
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddOcelot(builder.Configuration);
+builder.Services
+    .AddOcelot(builder.Configuration);
+    //.AddConsul()
+    //.AddConfigStoredInConsul();
 
 var app = builder.Build();
 

@@ -6,8 +6,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7001
+          "Host": "ecommercemangoservicescouponapi.azurewebsites.net"
         }
       ],
       "UpstreamPathTemplate": "/api/Coupon",
@@ -15,6 +14,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7777"
+    "BaseUrl": "https://ecommercemangogateway.azurewebsites.net"
   }
 }
